@@ -6,6 +6,8 @@
 
 class db {
 public:
+	static std::string DELIMITER = "%";
+	static std::string RECORD_DELIMITER = "%";
 	db(std::string fn) : file_name("./.dbs/" + fn) 
 	{
 		std::fstream file;
@@ -13,11 +15,19 @@ public:
 		file.close();
 	}
 
+	~db()
+	{
+		write_info();
+	}
 	void set(std::string key, std::string value);
 	std::string get(std::string key);
-	void info();
 
 private:
+
+	void write_info();
+	void load_info();
+	// key: the string of key, value: position (offset)
+	std::unordered_map<std::string, int> kv;
 	std::string file_name;
 }
 

@@ -8,11 +8,24 @@ class db {
 public:
 	static std::string DELIMITER = "%";
 	static std::string RECORD_DELIMITER = "%";
-	db(std::string fn) : file_name("./.dbs/" + fn) 
+
+	static std::string PATH = "./.dbs/";
+	static std::string INFO_FILE = ".info.kv";
+	static std::string INFO_START_OFFSET = ".info.start_offset";
+	static std::string DEFAULT_FILE_NAME = ".default.db";
+
+	db()
 	{
-		std::fstream file;
-		file.open(file_name, fstream::out);
-		file.close();
+		file_name = PATH + DEFAULT_FILE_NAME;
+		load_info();
+	}
+
+	db(std::string fn)
+	{
+		load_info();
+		// std::fstream file;
+		// file.open(file_name, fstream::out);
+		// file.close();
 	}
 
 	~db()
@@ -29,6 +42,9 @@ private:
 	// key: the string of key, value: position (offset)
 	std::unordered_map<std::string, int> kv;
 	std::string file_name;
+
+	// The starting offset every time we start the app.
+	int start_offset;
 }
 
 #endif

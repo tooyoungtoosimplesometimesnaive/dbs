@@ -53,9 +53,7 @@ void db::load_info()
 		i >> k >> v;
 		kv[k] = v;
 	}
-	if (i) {
-		i.close();
-	}
+	i.close();
 
 	std::ifstream i2(db::PATH + db::INFO_START_OFFSET);
 	if (i2) {
@@ -63,6 +61,7 @@ void db::load_info()
 	} else {
 		start_offset = 0;
 	}
+	i2.close();
 
 }
 

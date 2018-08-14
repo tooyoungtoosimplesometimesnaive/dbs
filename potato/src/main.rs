@@ -6,10 +6,13 @@ use std::process::Command;
 use std::io::{self, Read};
 
 fn get(key: String) {
-    let output = Command::new("grep").arg(key).arg("./log").output()
+    let output = Command::new("grep").arg(&key[..]).arg("./log").output()
         .expect("Fail to execute grep.");
     println!("{}", output.status);
     println!("{}", String::from_utf8_lossy(&output.stdout));
+}
+
+fn set(key: String, value: String) {
 }
 
 fn main() -> io::Result<()> {
